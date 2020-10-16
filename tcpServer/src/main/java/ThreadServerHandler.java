@@ -13,20 +13,17 @@ public class ThreadServerHandler extends Thread {
             @Override
             public void run() {
                 try {
-                    System.out.println("수발신에 사용된 스레드 : " + Thread.currentThread().getName());
-
                     //서버가 보낸 내용
                     InputStream is = connectedClientSocket.getInputStream();
                     DataInputStream ds = new DataInputStream(is);
                     //길이를 먼저 받고 내용을 받음
                     String receiveText = ds.readUTF();
-                    System.out.println("수신 내용 : " + receiveText);
 
                     //서버가 보내는 내용
                     OutputStream os = connectedClientSocket.getOutputStream();
                     DataOutputStream dos = new DataOutputStream(os);
-                    String sendText = "서버입니다. 현재 스레드 : " + Thread.currentThread().getName();
-                    System.out.println("발신 내용 : " + sendText);
+                    String sendText = "서버입니다. 수발신에 스레드 : " + Thread.currentThread().getName();
+                    System.out.println("수신 내용 : " + receiveText+" 발신 내용 : " + sendText);
                     //길이를 먼저 보내고 내용을 보냄
                     dos.writeUTF(sendText);
                 } catch (Exception e) {

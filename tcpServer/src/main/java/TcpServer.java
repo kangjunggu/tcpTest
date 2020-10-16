@@ -15,9 +15,8 @@ public class TcpServer {
         System.out.println("****************************************");
 
 
-        executorService = Executors.newFixedThreadPool(
-                Runtime.getRuntime().availableProcessors()
-        );
+        //쓰레드 갯수 생성
+        executorService = Executors.newFixedThreadPool(10);
         try {
             server = new ServerSocket();
             server.bind(new InetSocketAddress("localhost", 10100));
@@ -37,10 +36,9 @@ public class TcpServer {
                         Socket connectedClient = server.accept();
 
                         ++connectCount; //접속자수 카운트
-                        System.out.print("[ " + connectCount + " ]");
-                        System.out.print(" 서버 IP: " + connectedClient.getLocalAddress() + ":" + connectedClient.getLocalPort());
-                        System.out.print(" 클라이언트 IP: " + connectedClient.getInetAddress().getHostAddress() + ":" + connectedClient.getPort());
-                        System.out.println(" 접속에 사용된 스레드: " + Thread.currentThread().getName());
+                        System.out.println("[ " + connectCount + " ]"+" 서버 IP: " + connectedClient.getLocalAddress() +
+                                ":" + connectedClient.getLocalPort()+" 클라이언트 IP: " + connectedClient.getInetAddress().getHostAddress() +
+                                ":" + connectedClient.getPort()+" 접속에 사용된 스레드: " + Thread.currentThread().getName());
 
                         //서버 스레드 실행
                         ThreadServerHandler handler = new ThreadServerHandler(connectedClient);
